@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 
 // ✅ IP Server (เช็ค IP ของเครื่องคุณอีกทีนะครับ)
-const API_URL = 'http://192.168.102.93:3000'; 
+const API_URL = 'https://watermeterbackend-production.up.railway.app'; 
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState('login'); 
