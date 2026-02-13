@@ -101,11 +101,18 @@ export default function App() {
       });
 
       const result = await response.json();
-      if (result.success) {
-        setReadingValue(result.reading);
+      
+      // ✅ เพิ่มตรงนี้: ไม่ว่า OCR จะอ่านออกหรือไม่ ให้เก็บรูปที่อัปโหลดไปแล้วไว้เสมอ
+      if (result.image_path) {
         setServerImagePath(result.image_path);
+      }
+
+      if (result.success) {
+        setReadingValue(result.reading); // ถ้าอ่านออก เอาเลขมาใส่ช่องอัตโนมัติ
       } else {
-        Alert.alert('แจ้งเตือน', 'อ่านตัวเลขไม่ออก กรุณากรอกเอง');
+        // ถ้าอ่านไม่ออก ให้แจ้งเตือนและเว้นช่องว่างให้พิมพ์เอง
+        Alert.alert('แจ้งเตือน', 'รูปไม่ชัดเจน กรุณาพิมพ์ตัวเลขมิเตอร์เองได้เลยครับ');
+        setReadingValue(''); 
       }
     } catch (error) {
       Alert.alert('Error', 'เชื่อมต่อ Server ไม่ได้');
