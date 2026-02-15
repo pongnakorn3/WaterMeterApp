@@ -158,6 +158,28 @@ export default function App() {
     }
   };
 
+  // ✅ 5. ฟังก์ชันออกจากระบบ (Popup Confirm)
+  const handleLogout = () => {
+    Alert.alert(
+      "ยืนยันการออกจากระบบ",
+      "คุณต้องการออกจากระบบใช่หรือไม่?",
+      [
+        {
+          text: "ยกเลิก",
+          style: "cancel"
+        },
+        {
+          text: "ยืนยัน",
+          style: "destructive", // ให้ปุ่มเป็นสีแดง (สำหรับ iOS)
+          onPress: () => {
+            setUser(null); // เคลียร์ข้อมูล user
+            setCurrentScreen('login'); // กลับไปหน้า Login
+          }
+        }
+      ]
+    );
+  };
+
   // ================= UI SECTIONS =================
 
   // 1. LOGIN SCREEN
@@ -211,7 +233,8 @@ export default function App() {
               <Text style={[styles.menuText, {color: THEME.electric}]}>ไฟฟ้า</Text>
            </TouchableOpacity>
 
-           <TouchableOpacity onPress={() => setCurrentScreen('login')} style={{marginTop: 40}}>
+           {/* ✅ เรียกใช้ฟังก์ชัน handleLogout ตรงนี้ */}
+           <TouchableOpacity onPress={handleLogout} style={{marginTop: 40}}>
              <Text style={{color: 'red', fontSize: 16}}>ออกจากระบบ</Text>
            </TouchableOpacity>
         </View>
